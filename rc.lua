@@ -70,11 +70,18 @@ end
 
 -- {{{ Tags
 -- Define a tag table which hold all screen tags.
-tags = {}
-for s = 1, screen.count() do
-    -- Each screen has its own tag table.
-    tags[s] = awful.tag({ 1, 2, 3, 4, 5, 6, 7, 8, 9 }, s, layouts[1])
-end
+ tags = {
+   settings = {
+     { names  = { "general", "buffer", "code", "messages", "mail"},
+       layout = { layouts[2], layouts[1], layouts[6], layouts[7], layouts[9] }
+     },
+     { names  = { "terminals", "code", "messages"},
+       layout = { layouts[9], layouts[5], layouts[9] }
+ }}}
+
+ for s = 1, screen.count() do
+      tags[s] = awful.tag(tags.settings[s].names, s, tags.settings[s].layout)
+ end
 -- }}}
 
 -- {{{ Menu
